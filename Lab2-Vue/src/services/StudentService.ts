@@ -1,10 +1,10 @@
 import axios from 'axios'
 import type { AxiosResponse } from 'axios'
-import type { Event } from '@/types'
+import type { Student } from '@/types'
 import NProgress from 'nprogress'
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://dv-student-backend-2019.appspot.com',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
@@ -29,15 +29,7 @@ apiClient.interceptors.response.use(
 )
 
 export default {
-  getEvents(perPage = 2, page = 1): Promise<AxiosResponse<Event[]>> {
-    return apiClient.get('/events', {
-      params: {
-        _limit: perPage,
-        _page: page
-      }
-    })
-  },
-  getEvent(id: number): Promise<AxiosResponse<Event>> {
-    return apiClient.get(`/events/${id}`)
+  getStudents(): Promise<AxiosResponse<Student[]>> {
+    return apiClient.get('/students')
   }
 }
