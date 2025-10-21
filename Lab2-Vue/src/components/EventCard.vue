@@ -6,10 +6,15 @@ defineProps<{ event: Event }>()
 
 <template>
   <div class="event-class">
-    <div class="event-card">
-      <h2>{{ event.title }}</h2>
-      <span>@{{ event.time }} on {{ event.date }}</span>
-    </div>
+    <RouterLink
+      class="event-link"
+      :to="{ name: 'event', params: { id: event.id } }"
+    >
+      <div class="event-card">
+        <h2>{{ event.title }}</h2>
+        <span>@{{ event.time }} on {{ event.date }}</span>
+      </div>
+    </RouterLink>
   </div>
 </template>
 
@@ -24,5 +29,10 @@ defineProps<{ event: Event }>()
 .event-card:hover {
   transform: scale(1.01);
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);
+}
+.event-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
 }
 </style>
