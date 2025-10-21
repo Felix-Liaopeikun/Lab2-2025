@@ -3,7 +3,7 @@ import type { AxiosResponse } from 'axios'
 import type { Event } from '@/types'
 
 const apiClient = axios.create({
-  baseURL: 'https://my-json-server.typicode.com/Code-Pop/Real-World_Vue-3',
+  baseURL: 'http://localhost:3000',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'

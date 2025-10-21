@@ -12,7 +12,8 @@ const router = createRouter({
     { path: '/about', name: 'about', component: AboutView },
     { path: '/event/:id', name: 'event', component: EventView, props: true },
     { path: '/network-error', name: 'network-error', component: NetworkErrorView },
-    { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFoundView, props: true }
+    { path: '/404', name: '404', component: NotFoundView, props: route => ({ resource: route.query.resource }) },
+    { path: '/:pathMatch(.*)*', component: NotFoundView }
   ]
 })
 
