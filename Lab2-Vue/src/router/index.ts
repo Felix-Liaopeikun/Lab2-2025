@@ -5,6 +5,7 @@ import EventView from '../views/EventView.vue'
 import NetworkErrorView from '../views/NetworkErrorView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import StudentListView from '../views/StudentListView.vue'
+// @ts-ignore
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
