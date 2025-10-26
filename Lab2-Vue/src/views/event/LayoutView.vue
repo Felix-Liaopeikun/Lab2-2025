@@ -27,10 +27,15 @@ onMounted(() => {
       event.value = response.data
     })
     .catch((error) => {
-      console.error('There was an error!', error)
-      const fallback = localEvents as Event[]
-      event.value = fallback.find(e => e.id === parseInt(props.id)) || null
-    })
+       if (error && error.response && error.response.status === 404) {
+         router.push({
+           name: '404-resource-view',
+           params: { resource: 'event' }
+         })
+       } else {
+         router.push({ name: 'network-error' })
+       }
+     })
 })
 </script>
 

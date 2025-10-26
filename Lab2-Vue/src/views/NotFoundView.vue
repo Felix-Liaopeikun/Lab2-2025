@@ -1,17 +1,19 @@
 <script setup lang="ts">
-const props = defineProps<{ resource?: string }>()
+import { defineProps, withDefaults } from 'vue'
+const props = withDefaults(
+  defineProps<{
+    resource: string
+  }>(),
+  {
+    resource: 'page'
+  }
+)
 </script>
 
 <template>
-  <div class="not-found">
-    <h1>404 未找到</h1>
-    <p>
-      抱歉，
-      <strong>{{ props.resource || '资源' }}</strong>
-      不存在或已被删除。
-    </p>
-    <RouterLink to="/">返回首页</RouterLink>
-  </div>
+  <h1>Oops!</h1>
+  <h3>The {{ props.resource }} you're looking for is not here.</h3>
+  <RouterLink :to="{ name: 'home' }">Back to the home page</RouterLink>
 </template>
 
 <style scoped>
