@@ -1,0 +1,5 @@
+[
+  { "name": "Alice", "surname": "Wang", "gpa": 3.8 },
+  { "name": "Bob", "surname": "Li", "gpa": 3.5 },
+  { "name": "Carol", "surname": "Zhang", "gpa": 3.9 }
+]

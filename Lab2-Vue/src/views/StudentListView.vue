@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import type { Student } from '@/types'
 import StudentService from '@/services/StudentService'
 import axios from 'axios'
+import localStudents from '@/assets/students.json'
 
 const students = ref<Student[]>([])
 const loading = ref(true)
@@ -18,6 +19,8 @@ onMounted(async () => {
     } else {
       error.value = '发生未知错误，无法获取学生信息。'
     }
+    // 使用本地示例数据作为回退
+    students.value = localStudents as Student[]
   } finally {
     loading.value = false
   }

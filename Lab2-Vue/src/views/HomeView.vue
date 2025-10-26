@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import EventCard from '@/components/EventCard.vue'
 import type { Event } from '@/types'
-import { ref, onMounted, computed, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed, watchEffect } from 'vue'
 import EventService from '@/services/EventService'
 import localEvents from '@/assets/events.json'
 
@@ -12,11 +11,11 @@ const error = ref<string | null>(null)
 const totalEvents = ref(0)
 const perPage = 2
 
-const route = useRoute()
-const page = computed(() => Number(route.query.page) || 1)
+const props = defineProps<{ page: number }>()
+const page = computed(() => Number(props.page) || 1)
 const hasNextPage = computed(() => page.value * perPage < totalEvents.value)
 
-const fetchEvents = async () => {
+watchEffect(async () => {
   loading.value = true
   try {
     const response = await EventService.getEvents(perPage, page.value)
@@ -31,10 +30,7 @@ const fetchEvents = async () => {
   } finally {
     loading.value = false
   }
-}
-
-onMounted(fetchEvents)
-watch(page, fetchEvents)
+})
 </script>
 
 <template>
@@ -43,13 +39,42 @@ watch(page, fetchEvents)
     <p v-else-if="error" style="color:#c0392b">{{ error }}</p>
     <EventCard v-for="event in events" :key="event.id" :event="event" />
 
-    <div class="pagination" style="margin-top: 1rem; display: flex; gap: 1rem;">
-      <RouterLink v-if="page > 1" :to="{ name: 'home', query: { page: page - 1 } }">
-        ← 上一页
+    <div class="pagination">
+      <RouterLink
+        id="page-prev"
+        :to="{ name: 'home', query: { page: page - 1 } }"
+        rel="prev"
+        v-if="page > 1"
+      >
+        ‹ 上一页
       </RouterLink>
-      <RouterLink v-if="hasNextPage" :to="{ name: 'home', query: { page: page + 1 } }">
-        下一页 →
+      <RouterLink
+        id="page-next"
+        :to="{ name: 'home', query: { page: page + 1 } }"
+        rel="next"
+        v-if="hasNextPage"
+      >
+        下一页 ›
       </RouterLink>
     </div>
   </div>
 </template>
+
+<style scoped>
+.pagination {
+  display: flex;
+  width: 290px;
+  margin-top: 1rem;
+}
+.pagination a {
+  flex: 1;
+  text-decoration: none;
+  color: #2c3e50;
+}
+#page-prev {
+  text-align: left;
+}
+#page-next {
+  text-align: right;
+}
+</style>
