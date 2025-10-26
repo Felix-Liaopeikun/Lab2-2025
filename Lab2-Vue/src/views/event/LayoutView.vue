@@ -33,8 +33,8 @@ onMounted(() => {
            params: { resource: 'event' }
          })
        } else {
-         router.push({ name: 'network-error' })
-       }
+          router.push({ name: 'network-error-view' })
+        }
      })
 })
 </script>

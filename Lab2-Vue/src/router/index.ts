@@ -44,7 +44,7 @@ const router = createRouter({
       ]
     },
     { path: '/students', name: 'students', component: StudentListView },
-    { path: '/network-error', name: 'network-error', component: NetworkErrorView },
+    { path: '/network-error', name: 'network-error-view', component: NetworkErrorView },
     { path: '/404/:resource', name: '404-resource-view', component: NotFoundView, props: true },
     { path: '/:catchAll(.*)', name: 'not-found', component: NotFoundView }
   ]
