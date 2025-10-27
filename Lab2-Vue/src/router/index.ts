@@ -67,7 +67,14 @@ const router = createRouter({
     { path: '/network-error', name: 'network-error-view', component: NetworkErrorView },
     { path: '/404/:resource', name: '404-resource-view', component: NotFoundView, props: true },
     { path: '/:catchAll(.*)', name: 'not-found', component: NotFoundView }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  }
 })
 
 router.beforeEach(() => {

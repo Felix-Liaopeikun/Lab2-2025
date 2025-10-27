@@ -9,11 +9,14 @@ const events = ref<Event[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)
 const totalEvents = ref(0)
-const perPage = 2
+const perPage = 3
 
 const props = defineProps<{ page: number }>()
 const page = computed(() => Number(props.page) || 1)
-const hasNextPage = computed(() => page.value * perPage < totalEvents.value)
+const hasNextPage = computed(() => {
+  const totalPages = Math.ceil(totalEvents.value / perPage)
+  return page.value < totalPages
+})
 
 watchEffect(async () => {
   loading.value = true
