@@ -40,25 +40,27 @@ watchEffect(async () => {
   <div class="home">
     <p v-if="loading">加载中...</p>
     <p v-else-if="error" style="color:#c0392b">{{ error }}</p>
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <div class="flex flex-col items-center">
+      <EventCard v-for="event in events" :key="event.id" :event="event" />
 
-    <div class="pagination">
-      <RouterLink
-        id="page-prev"
-        :to="{ name: 'home', query: { page: page - 1 } }"
-        rel="prev"
-        v-if="page > 1"
-      >
-        ‹ 上一页
-      </RouterLink>
-      <RouterLink
-        id="page-next"
-        :to="{ name: 'home', query: { page: page + 1 } }"
-        rel="next"
-        v-if="hasNextPage"
-      >
-        下一页 ›
-      </RouterLink>
+      <div class="pagination">
+        <RouterLink
+          id="page-prev"
+          :to="{ name: 'home', query: { page: page - 1 } }"
+          rel="prev"
+          v-if="page > 1"
+        >
+          ‹ 上一页
+        </RouterLink>
+        <RouterLink
+          id="page-next"
+          :to="{ name: 'home', query: { page: page + 1 } }"
+          rel="next"
+          v-if="hasNextPage"
+        >
+          下一页 ›
+        </RouterLink>
+      </div>
     </div>
   </div>
 </template>
